@@ -3,7 +3,10 @@
 
 import os
 import config
+import caozuo
 import time
+import telebot
+from telebot import types
 
 TOKEN = config.TOKEN
 bot = telebot.TeleBot(TOKEN)
@@ -26,7 +29,12 @@ def bot_add(message):
     if l.find('%s' %un) == -1:
         bot.reply_to(message,'为了保护隐私，本bot仅限个人使用')
     else:
-
+        if len(message.text.split(' ')) == 2:
+            r = caozuo.add_server(message.text.split(' ')[1])
+            bot.send_chat_action(message.chat.id,'typing')
+            bot.send_message(message.chat.id,r)
+        else:
+            bot.send_chat_action(message.chat.id,'参数错误')
 
 @bot.message_handler(commands=['del'])
 def bot_add(message):
@@ -36,12 +44,13 @@ def bot_add(message):
     if l.find('%s' %un) == -1:
         bot.reply_to(message,'为了保护隐私，本bot仅限个人使用')
     else:
-        f = open("db.py")  
-        all_lines = f.readlines()  
-        for address in all_lines:  
-            markup.add(types.InlineKeyboardButton("%s" % button,callback_data='%s' % (button)))
-            bot.send_message(message.chat.id, "要删除哪个服务器咧？", reply_markup=markup)
-            file_obj.close()
+        if len(message.text.split(' ')) == 2:
+            r = caozuo.add_server(message.text.split(' ')[1])
+            bot.send_chat_action(message.chat.id,'typing')
+            bot.send_message(message.chat.id,r)
+        else:
+            bot.send_chat_action(message.chat.id,'参数错误')
+            
 
 @bot.message_handler(commands=['list'])
 def bot_add(message):
@@ -51,7 +60,22 @@ def bot_add(message):
     if l.find('%s' %un) == -1:
         bot.reply_to(message,'为了保护隐私，本bot仅限个人使用')
     else:
+        r = ping.check_ip_ping()
+        bot.send_chat_action(message.chat.id,'typing')
+        bot.send_message(message.chat.id,r)
+        
+@bot.message_handler(commands=['link'])
+def bot_add(message):
+    un = message.from_user.username
+    f = open('admin', 'r')
+    l = f.read()
+    if l.find('%s' %un) == -1:
+        bot.reply_to(message,'为了保护隐私，本bot仅限个人使用')
+    else:
+        id = message.chat.id
+        f = open('chatid'，'a+w')
+        print >> f,id
+        f.close()
+        bot.send_message(message.chat.id,'绑定完成')
 
-
-
-bot.polling(none_stop=True
+bot.polling()
