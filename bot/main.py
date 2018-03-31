@@ -8,7 +8,7 @@ import time
 import telebot
 from telebot import types
 
-TOKEN = config.TOKEN
+TOKEN = config.TOKENM
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
@@ -19,7 +19,7 @@ def bot_start(message):
 @bot.message_handler(commands=['help'])
 def bot_help(message):
     bot.send_chat_action(message.chat.id, 'typing')
-    bot.send_message(message.chat.id,'我能帮你监控服务器状态哟 \n /add 添加服务器 \n /del 删除服务器 \n /status 查看当前状态')
+    bot.send_message(message.chat.id,'我能帮你监控服务器状态哟 \n /add 添加服务器 \n /del 删除服务器 \n /list 查看服务器列表 \n /test 查询在线情况')
 
 @bot.message_handler(commands=['add'])
 def bot_add(message):
@@ -37,7 +37,7 @@ def bot_add(message):
             bot.send_chat_action(message.chat.id,'参数错误')
 
 @bot.message_handler(commands=['del'])
-def bot_add(message):
+def bot_del(message):
     un = message.from_user.username
     f = open('admin', 'r')
     l = f.read()
@@ -50,10 +50,9 @@ def bot_add(message):
             bot.send_message(message.chat.id,r)
         else:
             bot.send_chat_action(message.chat.id,'参数错误')
-            
 
 @bot.message_handler(commands=['list'])
-def bot_add(message):
+def bot_list(message):
     un = message.from_user.username
     f = open('admin', 'r')
     l = f.read()
@@ -61,15 +60,29 @@ def bot_add(message):
         bot.reply_to(message,'为了保护隐私，本bot仅限个人使用')
     else:
         f = open("db.py",'r')
-        all_lines = f.readlines()  
-        for ip in all_lines:  
+        s = f.read()
+        bot.send_chat_action(message.chat.id,'typing')
+        bot.send_message(message.chat.id,'监控列表： \n%s'%s)
+        f.close()
+        
+@bot.message_handler(commands=['test'])
+def bot_test(message):
+    un = message.from_user.username
+    f = open('admin', 'r')
+    l = f.read()
+    if l.find('%s' %un) == -1:
+        bot.reply_to(message,'为了保护隐私，本bot仅限个人使用')
+    else:
+        f = open("db.py",'r')
+        s = f.readlines()
+        for ip in s:
             r = ping.check_ip_ping(ip)
             bot.send_chat_action(message.chat.id,'typing')
             bot.send_message(message.chat.id,r)
         f.close()
 
 @bot.message_handler(commands=['link'])
-def bot_add(message):
+def bot_link(message):
     un = message.from_user.username
     f = open('admin', 'r')
     l = f.read()
