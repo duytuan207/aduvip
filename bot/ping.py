@@ -1,14 +1,12 @@
-#!/usr/bin/python
-# coding:utf-8
-
-import pyping
+import subprocess
+import shlex
+ 
 
 def check_ip_ping(ip):
-    r = pyping.ping('ip')
-    if r.ret_code == 0:
-        r = '%s online'%ip
-        return r
-    else:
-        r = '⚠%s offline⚠'%ip
-        return r
-    
+    cmd = 'ping -c 1' + ip
+    args = shlex.split(cmd)
+    try:
+	    subprocess.check_call(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	    return u"%s is up!"%ip
+    except subprocess.CalledProcessError:
+        return u"??%s is down!"%ip

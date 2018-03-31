@@ -45,7 +45,7 @@ def bot_add(message):
         bot.reply_to(message,'为了保护隐私，本bot仅限个人使用')
     else:
         if len(message.text.split(' ')) == 2:
-            r = caozuo.add_server(message.text.split(' ')[1])
+            r = caozuo.del_server(message.text.split(' ')[1])
             bot.send_chat_action(message.chat.id,'typing')
             bot.send_message(message.chat.id,r)
         else:
