@@ -2,13 +2,13 @@
 # coding:utf-8
 
 import subprocess
-import shlex
+import os,time,sys,re
  
 def check_ip_ping(ip):
-    cmd = 'ping -c 1' + ip
-    args = shlex.split(cmd)
-    try:
-	    subprocess.check_call(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-	    return 0
-    except subprocess.CalledProcessError:
+    p = subprocess.Popen(["ping -c 1 -i 0.2 -W 3 "+ ip],stdin = subprocess.PIPE,stdout = subprocess.PIPE,stderr = subprocess.PIPE,shell = True)
+    out = p.stdout.read()
+    regex = re.compile("time=\d*", re.IGNORECASE | re.MULTILINE)
+    if len(regex.findall(out)) > 0:
+        return 0
+    else:
         return 1

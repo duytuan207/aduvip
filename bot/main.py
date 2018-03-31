@@ -77,8 +77,14 @@ def bot_test(message):
         s = f.readlines()
         for ip in s:
             r = ping.check_ip_ping(ip)
-            bot.send_chat_action(message.chat.id,'typing')
-            bot.send_message(message.chat.id,r)
+            if r == 0:
+                bot.send_chat_action(message.chat.id,'typing')
+                bot.send_message(message.chat.id,u'%s 正常'%ip)
+            elif r == 1:
+                bot.send_chat_action(message.chat.id,'typing')
+                bot.send_message(message.chat.id,u'⚠⚠ %s 异常'%ip)
+            else:
+                bot.send_message(message.chat.id,'Error')
         f.close()
 
 @bot.message_handler(commands=['link'])
