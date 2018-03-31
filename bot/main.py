@@ -6,7 +6,7 @@ import caozuo
 import telebot
 from apscheduler.schedulers.background import BackgroundScheduler
 
-TOKEN = config.TOKENM
+TOKEN = config.TOKEN
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])

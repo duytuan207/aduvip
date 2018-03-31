@@ -4,6 +4,4 @@
 # configuration
 
 # Mandatory
-TOKENM = ''
-
-TOKENP =''
+TOKEN = ''
