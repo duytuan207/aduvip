@@ -12,8 +12,8 @@ TOKEN = config.TOKEN
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
-def bot_start(massage):
-	bot.send_chat_action(message.chat.id, 'typing')
+def bot_start(message):
+    bot.send_chat_action(message.chat.id, 'typing')
     bot.send_message(message.chat.id, '欢迎~我可以为你监控服务器在线状态哟 戳 /help 查看帮助！')
 
 @bot.message_handler(commands=['help'])
@@ -77,7 +77,7 @@ def bot_add(message):
         bot.reply_to(message,'为了保护隐私，本bot仅限个人使用')
     else:
         id = message.chat.id
-        f = open('chatid'，'a+w')
+        f = open('chatid','a+w')
         print >> f,id
         f.close()
         bot.send_message(message.chat.id,'绑定完成')

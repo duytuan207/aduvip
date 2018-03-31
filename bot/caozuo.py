@@ -3,15 +3,17 @@
 
 import os
 
-def add_server(ip):   
+def add_server(ip): 
+    f= open("db.py",'a+w')
+    l = f.readlines()
     if l.find('%s' %ip) == -1:
-            f = open('db.py', 'a+w')
-            r = ip
-            print >> f, r
-            f.close()
-            return  '成功添加监控~'
-        else:
-            return  '添加失败：不可重复添加'
+        f = open('db.py', 'a+w')
+        r = ip
+        print >> f, r
+        f.close()
+        return  '成功添加监控~'
+    else:
+        return  '添加失败：不可重复添加'
       
 def del_server(ip):
     f = open("db.py",'a+w')
