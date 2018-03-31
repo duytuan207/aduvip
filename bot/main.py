@@ -1,12 +1,10 @@
 #!/usr/bin/python
 # coding:utf-8
 
-import os
 import config
 import caozuo
-import time
 import telebot
-from telebot import types
+from apscheduler.schedulers.background import BackgroundScheduler
 
 TOKEN = config.TOKENM
 bot = telebot.TeleBot(TOKEN)
@@ -101,4 +99,22 @@ def bot_link(message):
         f.close()
         bot.send_message(message.chat.id,'绑定完成')
 
-bot.polling()
+def bot_warn():
+    f = open("db.py",'r')
+    s = f.readlines()
+    for ip in s:
+        r = ping.check_ip_ping(ip)
+        if r == 0:
+            pass
+        elif r == 1:
+            bot.send_chat_action(message.chat.id,'typing')
+            bot.send_message(message.chat.id,u'⚠⚠ %s 异常'%ip)
+        else:
+            bot.send_message(message.chat.id,'Error')
+    f.close()
+
+if __name__ == '__main__':
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(del_unused_server, 'interval', minutes=30)
+    scheduler.start()
+    bot.polling()
