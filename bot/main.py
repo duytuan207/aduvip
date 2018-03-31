@@ -100,6 +100,8 @@ def bot_link(message):
         bot.send_message(message.chat.id,'绑定完成')
 
 def bot_warn():
+    fs = open("chatid",'r')
+    id = fs.read()
     f = open("db.py",'r')
     s = f.readlines()
     for ip in s:
@@ -107,8 +109,8 @@ def bot_warn():
         if r == 0:
             pass
         elif r == 1:
-            bot.send_chat_action(message.chat.id,'typing')
-            bot.send_message(message.chat.id,u'⚠⚠ %s 异常'%ip)
+            bot.send_chat_action(id,'typing')
+            bot.send_message(id,u'⚠⚠ %s 异常'%ip)
         else:
             bot.send_message(message.chat.id,'Error')
     f.close()
