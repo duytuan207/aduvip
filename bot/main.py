@@ -60,10 +60,14 @@ def bot_add(message):
     if l.find('%s' %un) == -1:
         bot.reply_to(message,'为了保护隐私，本bot仅限个人使用')
     else:
-        r = ping.check_ip_ping()
-        bot.send_chat_action(message.chat.id,'typing')
-        bot.send_message(message.chat.id,r)
-        
+        f = open("db.py",'r')
+        all_lines = f.readlines()  
+        for ip in all_lines:  
+            r = ping.check_ip_ping(ip)
+            bot.send_chat_action(message.chat.id,'typing')
+            bot.send_message(message.chat.id,r)
+        f.close()
+
 @bot.message_handler(commands=['link'])
 def bot_add(message):
     un = message.from_user.username
