@@ -4,6 +4,7 @@
 import config
 import caozuo
 import telebot
+import ping
 from apscheduler.schedulers.background import BackgroundScheduler
 
 TOKEN = config.TOKEN
@@ -110,13 +111,13 @@ def bot_warn():
             pass
         elif r == 1:
             bot.send_chat_action(id,'typing')
-            bot.send_message(id,u'⚠⚠ %s 异常'%ip)
+            bot.send_message(id,u'⚠⚠请注意 %s 出现异常'%ip⚠⚠)
         else:
             bot.send_message(message.chat.id,'Error')
     f.close()
 
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
-    scheduler.add_job(del_unused_server, 'interval', minutes=30)
+    scheduler.add_job(bot_warn,'interval', minutes=1)
     scheduler.start()
     bot.polling()
