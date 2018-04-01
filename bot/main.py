@@ -118,7 +118,7 @@ def bot_warn():
             pass
         elif r == 1:
             bot.send_chat_action(id,'typing')
-            bot.send_message(id,u'⚠⚠请注意 %s 出现异常'%ip⚠⚠)
+            bot.send_message(id,u'⚠⚠请注意 %s 出现异常'%ip⚠⚠')
         else:
             bot.send_message(message.chat.id,'Error')
     f.close()
