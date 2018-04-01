@@ -95,11 +95,18 @@ def bot_link(message):
         bot.reply_to(message,'为了保护隐私，本bot仅限个人使用')
     else:
         id = message.chat.id
-        f = open('chatid','a+w')
-        print >> f,id
-        f.close()
-        bot.send_message(message.chat.id,'绑定完成')
-
+        f = open("chatid",'r')
+        l = f.read()
+        #判断
+        if l.find('%s'%id) == -1:
+            f.close()
+            f = open('chatid','a+w')
+            print >> f,id
+            f.close()
+            bot.send_message(message.chat.id,'绑定完成')
+        else:
+            bot.send_message(message.chat.id,'已经绑定过了哦~~')
+        
 def bot_warn():
     fs = open("chatid",'r')
     id = fs.read()
