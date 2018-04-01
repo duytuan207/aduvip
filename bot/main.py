@@ -100,7 +100,7 @@ def bot_link(message):
         #判断
         if l.find('%s'%id) == -1:
             f.close()
-            f = open('chatid','a+w')
+            f = open('chatid','w')
             print >> f,id
             f.close()
             bot.send_message(message.chat.id,'绑定完成')
