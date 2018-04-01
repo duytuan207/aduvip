@@ -14,4 +14,14 @@
 # 安装
 
 - clone 本项目
-- 
+- 把自己username添加进admin里
+- pip install pytelegrambotapi
+- pip install apscheduler
+- Python main.py
+
+# 使用
+
+如果要启用主动提醒功能，需使用/link指令**只需运行一次**
+
+
+end
