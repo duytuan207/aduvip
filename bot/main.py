@@ -97,7 +97,6 @@ def bot_link(message):
         id = message.chat.id
         f = open("chatid",'r')
         l = f.read()
-        #判断
         if l.find('%s'%id) == -1:
             f.close()
             f = open('chatid','w')
@@ -118,7 +117,7 @@ def bot_warn():
             pass
         elif r == 1:
             bot.send_chat_action(id,'typing')
-            bot.send_message(id,u'⚠⚠请注意 %s 出现异常'%ip)
+            bot.send_message(id,u'⚠⚠请注意 %s 出现异常⚠⚠'%ip)
         else:
             bot.send_message(message.chat.id,'Error')
     f.close()
