@@ -125,7 +125,7 @@ def bot_warn():
             pass
         elif r == 1:
             bot.send_chat_action(id,'typing')
-            bot.send_message(id,u'[PUSH]⚠⚠警报 ⚠⚠ \n%s 出现异常 \n本警报由bot自动发出，可能受限于服务器环境而出现误报'%ip)
+            bot.send_message(id,u'[PUSH]⚠⚠警报 ⚠⚠ \n%s 出现异常 \n*本警报由bot自动发出*'%ip)
         else:
             bot.send_message(message.chat.id,'Error:未知错误，请向 @johnpoint 反应')
     f.close()
