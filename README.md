@@ -4,10 +4,10 @@
 
 ```
 /help - 帮助
-/add - 添加service （使用方法 /add + ip/域名）
-/del - 删除service  （使用方法同上）
-/list - 列出所有service
-/test - 检测service
+/add - 添加服务器（使用方法 /add + ip/域名）
+/del - 删除服务器（使用方法同上）
+/list - 列出所有服务器
+/test - 检测服务器
 ```
 
 # 安装
