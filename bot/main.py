@@ -107,7 +107,7 @@ def bot_lock(message):
 		    pass
 		    bot.send_message(message.chat.id,'ip库文件已存在，pass')
         msg_id = bot.send_message(message.chat.id,'绑定用户id…').message_id
-	    uid = message.from_user.id
+	    ud = message.from_user.id
 	    f = open("admin",'w')
 	    i = uid
 	    print >> f,i
@@ -116,7 +116,7 @@ def bot_lock(message):
 	    time.sleep(5)
 	    bot.edit_message_text('配置完成~', message.chat.id, msg_id)
     else:
-        bot.send_message(message.chat.id,'出现错误，本bot已经绑定过啦！')
+        ;bot.send_message(message.chat.id,'出现错误，本bot已经绑定过啦！')
 
 
 def bot_warn():
