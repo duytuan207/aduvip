@@ -92,8 +92,7 @@ def bot_test(message):
 def bot_lock(message):
 	r = os.path.exists('admin')
 	rdb = os.path.exists('db.py')
-	rad = os.path.exists('done')
-	if rad == False:
+	if r == False:
 	    if r == False:
 		    os.mknod("admin")
 		    bot.send_message(message.chat.id,'已创建绑定id')
@@ -114,7 +113,6 @@ def bot_lock(message):
 	    f.close()
 	    bot.edit_message_text('绑定完成！', message.chat.id, msg_id)
 	    time.sleep(10)
-	    os.mknod('done')
 	    bot.edit_message_text('配置完成~', message.chat.id, msg_id)
 	else:
 		bot.send_message(message.chat.id,'已经绑定过！？')
