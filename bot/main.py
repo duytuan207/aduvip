@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # coding:utf-8
 
+import os
+import time
 import config
 import caozuo
 import telebot
@@ -13,7 +15,7 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start'])
 def bot_start(message):
     bot.send_chat_action(message.chat.id, 'typing')
-    bot.send_message(message.chat.id, '欢迎~我可以为你监控服务器在线状态哟 戳 /help 查看帮助！')
+    bot.send_message(message.chat.id, '欢迎~我可以为你监控服务器在线状态哟 戳 /help 查看帮助！首次使用请戳 /setup')
 
 @bot.message_handler(commands=['help'])
 def bot_help(message):
@@ -22,7 +24,7 @@ def bot_help(message):
 
 @bot.message_handler(commands=['add'])
 def bot_add(message):
-    un = message.from_user.username
+    un = message.from_user.id
     f = open('admin', 'r')
     l = f.read()
     if l.find('%s' %un) == -1:
@@ -37,7 +39,7 @@ def bot_add(message):
 
 @bot.message_handler(commands=['del'])
 def bot_del(message):
-    un = message.from_user.username
+    un = message.from_user.id
     f = open('admin', 'r')
     l = f.read()
     if l.find('%s' %un) == -1:
@@ -52,7 +54,7 @@ def bot_del(message):
 
 @bot.message_handler(commands=['list'])
 def bot_list(message):
-    un = message.from_user.username
+    un = message.from_user.id
     f = open('admin', 'r')
     l = f.read()
     if l.find('%s' %un) == -1:
@@ -66,7 +68,7 @@ def bot_list(message):
         
 @bot.message_handler(commands=['test'])
 def bot_test(message):
-    un = message.from_user.username
+    un = message.from_user.id
     f = open('admin', 'r')
     l = f.read()
     if l.find('%s' %un) == -1:
@@ -88,7 +90,7 @@ def bot_test(message):
 
 @bot.message_handler(commands=['link'])
 def bot_link(message):
-    un = message.from_user.username
+    un = message.from_user.id
     f = open('admin', 'r')
     l = f.read()
     if l.find('%s' %un) == -1:
@@ -106,6 +108,39 @@ def bot_link(message):
         else:
             bot.send_message(message.chat.id,'已经绑定过了哦~~')
         
+@bot.message_handler(commands=['setup'])
+def bot_lock(message):
+	r = os.path.exists('admin')
+	rl = os.path.exists('chatid')
+	rdb = os.path.exists('db.py')
+	if r == False:
+		os.mknod("admin")
+		bot.send_message(message.chat.id,'已创建绑定id')
+	else:
+		pass
+		bot.send_message(message.chat.id,'绑定id已存在，pass')
+	if rl == False:
+		os.mknod("chatid")
+		bot.send_message(message.chat.id,'已创建推送绑定')
+	else:
+		pass
+		bot.send_message(message.chat.id,'推送绑定已存在，pass')
+	if rdb == False:
+		os.mknod("db.py")
+		bot.send_message(message.chat.id,'已创建ip库')
+	else:
+		pass
+		bot.send_message(message.chat.id,'ip库文件已存在，pass')
+	msg_id = bot.send_message(message.chat.id,'绑定用户id…').message_id
+	uid = message.from_user.id
+	f = open("admin",'w')
+	i = uid
+	print >> f,i
+	f.close()
+	bot.edit_message_text('绑定完成！', message.chat.id, msg_id)
+	time.sleep(5)
+	bot.edit_message_text('配置完成~', message.chat.id, msg_id)
+
 def bot_warn():
     fs = open("chatid",'r')
     id = fs.read()
@@ -117,9 +152,9 @@ def bot_warn():
             pass
         elif r == 1:
             bot.send_chat_action(id,'typing')
-            bot.send_message(id,u'⚠⚠请注意 %s 出现异常⚠⚠'%ip)
+            bot.send_message(id,u'[PUSH]⚠⚠警报 ⚠⚠ \n%s 出现异常 \n本警报由bot自动发出，可能受限于服务器环境而出现误报'%ip)
         else:
-            bot.send_message(message.chat.id,'Error')
+            bot.send_message(message.chat.id,'Error:未知错误，请向 @johnpoint 反应')
     f.close()
 
 if __name__ == '__main__':
