@@ -90,29 +90,34 @@ def bot_test(message):
 
 @bot.message_handler(commands=['setup'])
 def bot_lock(message):
+	b = os.path.exists('done')
 	r = os.path.exists('admin')
 	rdb = os.path.exists('db.py')
-	if r == False:
-		os.mknod("admin")
-		bot.send_message(message.chat.id,'已创建绑定id')
-	else:
-		pass
-		bot.send_message(message.chat.id,'绑定id已存在，pass')
-	if rdb == False:
-		os.mknod("db.py")
-		bot.send_message(message.chat.id,'已创建ip库')
-	else:
-		pass
-		bot.send_message(message.chat.id,'ip库文件已存在，pass')
-	msg_id = bot.send_message(message.chat.id,'绑定用户id…').message_id
-	uid = message.from_user.id
-	f = open("admin",'w')
-	i = uid
-	print >> f,i
-	f.close()
-	bot.edit_message_text('绑定完成！', message.chat.id, msg_id)
-	time.sleep(5)
-	bot.edit_message_text('配置完成~', message.chat.id, msg_id)
+	if b == False:
+	    if r == False:
+		    os.mknod("admin")
+		    bot.send_message(message.chat.id,'已创建绑定id')
+	    else:
+		    pass
+		    bot.send_message(message.chat.id,'绑定id已存在，pass')
+	    if rdb == False:
+		    os.mknod("db.py")
+		    bot.send_message(message.chat.id,'已创建ip库')
+	    else:
+		    pass
+		    bot.send_message(message.chat.id,'ip库文件已存在，pass')
+	    msg_id = bot.send_message(message.chat.id,'绑定用户id…').message_id
+	    uid = message.from_user.id
+	    f = open("admin",'w')
+	    i = uid
+	    print >> f,i
+	    f.close()
+	    bot.edit_message_text('绑定完成！', message.chat.id, msg_id)
+	    time.sleep(5)
+	    bot.edit_message_text('配置完成~', message.chat.id, msg_id)
+    else:
+        bot.send_message(message.chat.id,'出现错误，本bot已经绑定过啦！')
+
 
 def bot_warn():
     fs = open("admin",'r')
