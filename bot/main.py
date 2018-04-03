@@ -114,6 +114,7 @@ def bot_lock(message):
 	    f.close()
 	    bot.edit_message_text('绑定完成！', message.chat.id, msg_id)
 	    time.sleep(10)
+	    os.mknod('done')
 	    bot.edit_message_text('配置完成~', message.chat.id, msg_id)
 	else:
 		bot.send_message(message.chat.id,'已经绑定过！？')
