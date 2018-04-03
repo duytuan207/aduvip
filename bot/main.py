@@ -109,7 +109,7 @@ def bot_lock(message):
         msg_id = bot.send_message(message.chat.id,'绑定用户id…').message_id
 	    ud = message.from_user.id
 	    f = open("admin",'w')
-	    i = uid
+	    i = ud
 	    print >> f,i
 	    f.close()
 	    bot.edit_message_text('绑定完成！', message.chat.id, msg_id)
