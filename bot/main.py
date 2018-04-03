@@ -88,30 +88,9 @@ def bot_test(message):
                 bot.send_message(message.chat.id,'Error')
         f.close()
 
-@bot.message_handler(commands=['link'])
-def bot_link(message):
-    un = message.from_user.id
-    f = open('admin', 'r')
-    l = f.read()
-    if l.find('%s' %un) == -1:
-        bot.reply_to(message,'为了保护隐私，本bot仅限个人使用')
-    else:
-        id = message.chat.id
-        f = open("chatid",'r')
-        l = f.read()
-        if l.find('%s'%id) == -1:
-            f.close()
-            f = open('chatid','w')
-            print >> f,id
-            f.close()
-            bot.send_message(message.chat.id,'绑定完成')
-        else:
-            bot.send_message(message.chat.id,'已经绑定过了哦~~')
-        
 @bot.message_handler(commands=['setup'])
 def bot_lock(message):
 	r = os.path.exists('admin')
-	rl = os.path.exists('chatid')
 	rdb = os.path.exists('db.py')
 	if r == False:
 		os.mknod("admin")
@@ -119,12 +98,6 @@ def bot_lock(message):
 	else:
 		pass
 		bot.send_message(message.chat.id,'绑定id已存在，pass')
-	if rl == False:
-		os.mknod("chatid")
-		bot.send_message(message.chat.id,'已创建推送绑定')
-	else:
-		pass
-		bot.send_message(message.chat.id,'推送绑定已存在，pass')
 	if rdb == False:
 		os.mknod("db.py")
 		bot.send_message(message.chat.id,'已创建ip库')
@@ -142,7 +115,7 @@ def bot_lock(message):
 	bot.edit_message_text('配置完成~', message.chat.id, msg_id)
 
 def bot_warn():
-    fs = open("chatid",'r')
+    fs = open("admin",'r')
     id = fs.read()
     f = open("db.py",'r')
     s = f.readlines()
