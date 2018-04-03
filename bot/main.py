@@ -106,7 +106,7 @@ def bot_lock(message):
 	    else:
 		    pass
 		    bot.send_message(message.chat.id,'ip库文件已存在，pass')
-	    msg_id = bot.send_message(message.chat.id,'绑定用户id…').message_id
+        msg_id = bot.send_message(message.chat.id,'绑定用户id…').message_id
 	    uid = message.from_user.id
 	    f = open("admin",'w')
 	    i = uid
