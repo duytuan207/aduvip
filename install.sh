@@ -93,7 +93,7 @@ echo 'Input your Token (telegram bot)'
 read p
 TOKEN=$p
 
-echo "TOKEN = '$TOKEN'">/home/ExpressBot/expressbot/config.py
+echo "TOKEN = '$TOKEN'">/home/tele-uptime-bot/bot/config.py
 
 }
 
