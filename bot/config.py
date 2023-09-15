@@ -4,4 +4,4 @@
 # configuration
 
 # Mandatory
-TOKEN = ''
+TOKEN = '6378447719:AAE1zkspCK7T2uiJcXhHQnfRntiNOHrRnBU'
