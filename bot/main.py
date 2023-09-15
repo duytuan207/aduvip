@@ -15,7 +15,7 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start'])
 def bot_start(message):
     bot.send_chat_action(message.chat.id, 'typing')
-    bot.send_message(message.chat.id, '欢迎~我可以为你监控服务器在线状态哟 戳 /help 查看帮助！首次使用请戳 /setup')
+    bot.send_message(message.chat.id, 'Chào mừng~ Tôi có thể theo dõi trạng thái trực tuyến của máy chủ cho bạn. Nhấp vào /help để xem trợ giúp!  Vui lòng nhấp vào /setup để sử dụng lần đầu tiên')
 
 @bot.message_handler(commands=['help'])
 def bot_help(message):
@@ -43,7 +43,7 @@ def bot_del(message):
     f = open('admin', 'r')
     l = f.read()
     if l.find('%s' %un) == -1:
-        bot.reply_to(message,'为了保护隐私，本bot仅限个人使用')
+        bot.reply_to(message,'Để bảo vệ quyền riêng tư, bot này chỉ được giới hạn cho mục đích sử dụng cá nhân')
     else:
         if len(message.text.split(' ')) == 2:
             r = caozuo.del_server(message.text.split(' ')[1])
